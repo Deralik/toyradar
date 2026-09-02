@@ -1,0 +1,8 @@
+README.md
+pyproject.toml
+toyradar/__init__.py
+toyradar.egg-info/PKG-INFO
+toyradar.egg-info/SOURCES.txt
+toyradar.egg-info/dependency_links.txt
+toyradar.egg-info/requires.txt
+toyradar.egg-info/top_level.txt

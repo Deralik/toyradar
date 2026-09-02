@@ -1,0 +1,9 @@
+numpy
+scipy
+matplotlib
+scikit-learn
+h5py
+sounddevice
+
+[dev]
+pytest
