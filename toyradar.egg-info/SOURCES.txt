@@ -1,6 +1,8 @@
 README.md
 pyproject.toml
+tests/test_db.py
 toyradar/__init__.py
+toyradar/utils.py
 toyradar.egg-info/PKG-INFO
 toyradar.egg-info/SOURCES.txt
 toyradar.egg-info/dependency_links.txt

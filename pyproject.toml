@@ -5,7 +5,7 @@ requires-python = ">=3.12"
 dependencies = ["numpy", "scipy", "matplotlib", "scikit-learn", "h5py", "sounddevice"]
 
 [project.optional-dependencies]
-dev = ["pytest"]
+dev = ["pytest", "PyQt6"]
 
 [build-system]
 requires = ["setuptools>=68"]
