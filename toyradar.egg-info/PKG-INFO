@@ -10,3 +10,4 @@ Requires-Dist: h5py
 Requires-Dist: sounddevice
 Provides-Extra: dev
 Requires-Dist: pytest; extra == "dev"
+Requires-Dist: PyQt6; extra == "dev"

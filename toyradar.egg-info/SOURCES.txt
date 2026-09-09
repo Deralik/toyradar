@@ -2,6 +2,11 @@ README.md
 pyproject.toml
 tests/test_db.py
 toyradar/__init__.py
+toyradar/capture.py
+toyradar/compress.py
+toyradar/datasets.py
+toyradar/rdmap.py
+toyradar/sim.py
 toyradar/utils.py
 toyradar.egg-info/PKG-INFO
 toyradar.egg-info/SOURCES.txt
