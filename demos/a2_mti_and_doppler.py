@@ -20,8 +20,6 @@ SNTH_VEL_UA = SNTH_WAV_L * SNTH_PRF / 4
 SNTH_DV = 2 * SNTH_VEL_UA / SNTH_N_PULSE
 
 sim_fig,  sim_ax  = plt.subplots(2,  2, figsize=(13, 9))
-# real_fig, real_ax = plt.subplots(2,  2, figsize=(13, 9))
-# full_fig, full_ax = plt.subplots(14, 2, figsize=(14, 14))
 
 def sim(targets, noise_power, n_pulses=SNTH_N_PULSE, stationary=None):
     return simulate(targets, n_pulses, SNTH_PRF, SNTH_WAV_L, noise_power, SNTH_N_BINS, SNTH_CELL_W, stationary)
@@ -58,7 +56,7 @@ sim_fig.colorbar(im, ax=sim_ax[0,1], label="Amplitude (real component)")
 
 # Doppler Maps
 
-def top_peaks(row, floor, thr_db=15, n=2, sep=4):
+def top_peaks(row, floor, thr_db=35, n=2, sep=10):
     order = np.argsort(row)[::-1]
     picked = []
     for k in order:
@@ -70,7 +68,7 @@ def top_peaks(row, floor, thr_db=15, n=2, sep=4):
             break
     return picked
 
-def draw_map(fig, ax, power, vel, range_m, title, rows=None, thr_db=15):
+def draw_map(fig, ax, power, vel, range_m, title, rows=None, thr_db=35):
     floor = np.median(power)
     cell = range_m[1] - range_m[0]
     img = ax.imshow(10*np.log10(power.T/floor), aspect='auto', origin='lower',
@@ -82,7 +80,7 @@ def draw_map(fig, ax, power, vel, range_m, title, rows=None, thr_db=15):
     for row in (range(power.shape[0]) if rows is None else rows):
         for k in top_peaks(power[row], floor, thr_db):
             ax.plot(range_m[row] + cell/2, vel[k], 'r+', ms=10)
-            ax.annotate(f"{vel[k]:+.1f} m/s", (range_m[row], vel[k]), color='w',
+            ax.annotate(f"{vel[k]:+.1f}", (range_m[row], vel[k]), color='w',
                         xytext=(6, 4), textcoords='offset points', fontsize=8)
 
 power, vel = rd_map(block, SNTH_PRF, SNTH_WAV_L, window=None)
@@ -119,6 +117,7 @@ real_ax[0,1].set_title("After Two-Pulse MTI")
 real_fig.colorbar(im, ax=real_ax[0,1], label="Amplitude (real component)")
 
 power, vel = rd_map(blk, prf, lam, hann(NB))
+
 draw_map(real_fig, real_ax[1,0], power, vel, rng_m, "Range-Doppler Map (one block)")
 
 nblk = iq.shape[0] // NB
