@@ -1,5 +1,8 @@
 import numpy as np
 import scipy.io 
+import glob
+import os
+import re
 
 def load_ipix(path, channel):
     f = scipy.io.netcdf_file(path, mmap=False)
@@ -53,4 +56,19 @@ def load_ipix(path, channel):
     return complex_data, meta
 
 
-
+def load_raddar(root):
+    maps, cls, session, frame = [], [], [], []
+    for c in ("Cars", "Drones", "People"):
+        for sp in sorted(glob.glob(os.path.join(root, c, "*/"))):
+            s = f"{c}/{os.path.basename(sp.rstrip('/'))}"
+            files = sorted(glob.glob(os.path.join(sp, "*.csv")),
+                           key=lambda p: int(re.findall(r"(\d+)\.csv$", p)[0]))
+            for f in files:
+                m = np.loadtxt(f, delimiter=",")
+                if m.shape != (11, 61):
+                    continue
+                maps.append(m)
+                cls.append(c)
+                session.append(s)
+                frame.append(int(re.findall(r"(\d+)\.csv$", f)[0]))
+    return np.array(maps), np.array(cls), np.array(session), np.array(frame)
